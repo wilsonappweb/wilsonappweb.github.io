@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Wilson App (Web Interface)</title>
+  <!-- UIkit CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.4.2/dist/css/uikit.min.css" />
+  <link rel="stylesheet" href="css/admin.css" />
+
+  <!-- UIkit JS -->
+  <script src="https://cdn.jsdelivr.net/npm/uikit@3.4.2/dist/js/uikit.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/uikit@3.4.2/dist/js/uikit-icons.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-firestore.js"></script>
+  <script src="auth.js"></script>
+  <script src="alerts.js"></script>
+
+</head>
+
+<body onload="loaded()">
+
+  <nav class="uk-navbar-container uk-margin" uk-navbar>
+    <div class="uk-navbar-left">
+
+      <a class="uk-navbar-item uk-logo" href="#"><img src="img/wilson_logo.png" width="40">&nbsp;&nbsp;<img class="uk-visible@s" src="img/wilson_app_logo.png" width="140"></a>
+
+
+    </div>
+    <div class="uk-navbar-right">
+      <div class="uk-navbar-item admin-css-oneline">
+        <button class="uk-button uk-button-default" onclick="loginbutton()">
+          <span uk-icon="user"></span>
+          &nbsp;&nbsp;&nbsp;
+          <span class="admin-auth-button">Loading...</span>
+        </button>
+        <div id="admin-auth-dropdown" uk-dropdown="mode: click">
+          <ul class="uk-nav uk-dropdown-nav">
+              <li><a onclick="changename()">Change Name</a></li>
+              <li><a href="mailto:escherwd@yahoo.com">Support</a></li>
+              <li class="uk-nav-divider"></li>
+              <li><a onclick="logout()">Log Out</a></li>
+          </ul>
+      </div>
+      </div>
+    </div>
+  </nav>
+  <div uk-grid class="uk-grid-column-small uk-grid-row-large uk-child-width-1-2@s">
+    <div>
+      <section class="uk-padding">
+        <h3>Previous Alerts</h3>
+        <div id="admin-prev-alerts">
+          <div align=center>
+            <div uk-spinner></div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div class="uk-flex-first">
+      <section class="uk-padding">
+        <h3>Create new Alert</h3>
+        <div id="admin-create-spinner" align=center>
+          <div uk-spinner></div>
+        </div>
+        <div class="uk-alert-primary admin-create" id="admin-create-alert" uk-alert style="display: none;">
+          <p>You must be signed into a valid @pps.net Google account before sending any alerts.</p>
+        </div>
+        <div class="admin-create" id="admin-create-login" style="display: none;">
+          <p align=center>
+            <button class="uk-button uk-button-default" onclick="loginbutton()">Log In</button>
+          </p>
+        </div>
+        <div id="admin-create-form" class="admin-create" style="display: none;">
+          <form class="uk-form-stacked">
+            <div>
+                <label class="uk-form-label" for="admin-input-title">Title (Optional)</label>
+                <div class="uk-form-controls">
+                  <input class="uk-input admin-create-input" id="admin-input-title" type="text" placeholder="New Alert">
+                </div>
+            </div>
+            <div class="uk-margin">
+              <label class="uk-form-label" for="admin-input-sender">Sender</label>
+              <div class="uk-form-controls">
+                <input class="uk-input admin-create-input" id="admin-input-sender" type="text" placeholder="Loading...">
+              </div>
+          </div>
+          <div class="uk-margin">
+            <label class="uk-form-label" for="admin-input-content">Content</label>
+            <div class="uk-form-controls">
+              <textarea class="uk-textarea admin-create-input" rows="5" id="admin-input-content"></textarea>
+            </div>
+        </div>
+        <div class="uk-margin">
+          <label class="uk-form-label" for="admin-input-url">Attached URL (Optional)</label>
+          <div class="uk-form-controls">
+            <input class="uk-input admin-create-input" id="admin-input-url" type="text">
+          </div>
+      </div>
+        </form>
+        <button onclick="submit()" class="uk-button uk-button-primary uk-margin">Publish Alert</button>
+        <button onclick="resetForm()" class="uk-button uk-button-danger uk-margin">Reset Form</button>
+        </div>
+      </section>
+    </div>
+  </div>
+
+
+
+</body>
+
+</html>
